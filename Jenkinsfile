@@ -2,13 +2,6 @@ pipeline {
     agent any
 
     stages {
-stage('Test Credential') {
-    steps {
-        withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
-            sh 'echo TOKEN_FOUND'
-        }
-    }
-}
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/LeeKHao/8.2CDevSecOps.git'
