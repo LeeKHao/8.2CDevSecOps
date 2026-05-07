@@ -35,12 +35,10 @@ stage('SonarCloud Analysis') {
     steps {
         withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
             sh '''
-            # 1. Force remove the old scanner work directory to clear the lock
-            rm -rf .scannerwork
-            
-            # 2. Run the scanner
+            # Direct the scanner to use a unique work directory for this build
             /opt/sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner \
-            -Dsonar.token=${SONAR_TOKEN}
+            -Dsonar.token=${SONAR_TOKEN} \
+            -Dsonar.working.directory=.scannerwork_new
             '''
         }
     }
