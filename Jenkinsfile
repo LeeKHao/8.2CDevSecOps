@@ -33,11 +33,15 @@ pipeline {
         }
 	stage('SonarCloud Analysis') {
     steps {
+        withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
             sh '''
             cd /var/jenkins_home/workspace/8.2CDevSecOps
 
-            /opt/sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner \            '''
+            /opt/sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner \
+            -Dsonar.token=$SONAR_TOKEN
+            '''
         }
     }
+}
 	}
 }
