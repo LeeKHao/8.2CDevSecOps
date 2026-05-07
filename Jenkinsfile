@@ -34,7 +34,8 @@ pipeline {
 	stage('SonarCloud Analysis') {
     		steps {
         sh '''
-/opt/sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner
+/opt/sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner \
+  -Dsonar.login=$SONAR_TOKEN
         '''
     }
 }
