@@ -34,10 +34,7 @@ pipeline {
 	stage('SonarCloud Analysis') {
     		steps {
         sh '''
-        docker run --rm \
-          -v "$PWD:/usr/src" \
-          sonarsource/sonar-scanner-cli \
-          sonar-scanner
+/opt/sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner
         '''
     }
 }
