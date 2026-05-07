@@ -31,5 +31,12 @@ pipeline {
                 sh 'npm audit || true'
             }
         }
+	stage('SonarCloud Analysis') {
+	    steps {
+ 		sh '''
+ 		//your scripts
+		'''
+ 	 }
+	}
     }
 }
