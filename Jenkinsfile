@@ -33,9 +33,7 @@ pipeline {
         }
 	stage('SonarCloud Analysis') {
 	    steps {
- 		sh '''
- 		//your scripts
-		'''
+ 		sh 'SonarCloud Analysis'
  	 }
 	}
     }
