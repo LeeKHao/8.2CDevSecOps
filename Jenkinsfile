@@ -32,9 +32,14 @@ pipeline {
             }
         }
 	stage('SonarCloud Analysis') {
-	    steps {
- 		sh 'SonarCloud Analysis'
- 	 }
-	}
+    		steps {
+        sh '''
+        docker run --rm \
+          -v "$PWD:/usr/src" \
+          sonarsource/sonar-scanner-cli \
+          sonar-scanner
+        '''
+    }
+}
     }
 }
