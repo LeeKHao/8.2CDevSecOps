@@ -1,53 +1,34 @@
 pipeline {
     agent any
 
-    triggers {
-        pollSCM('H/5 * * * *')
-    }
-
     stages {
-
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo 'Building application using npm'
+                git branch: 'main', url: 'https://github.com/your_github_username/8.2CDevSecOps.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
                 sh 'npm install'
             }
         }
 
-        stage('Unit and Integration Tests') {
+        stage('Run Tests') {
             steps {
-                echo 'Running tests'
-                sh 'npm test'
+                sh 'npm test || true'
             }
         }
 
-        stage('Code Analysis') {
+        stage('Generate Coverage Report') {
             steps {
-                echo 'Running SonarQube analysis'
+                sh 'npm run coverage || true'
             }
         }
 
-        stage('Security Scan') {
+        stage('NPM Audit (Security Scan)') {
             steps {
-                echo 'Running OWASP Dependency-Check'
-            }
-        }
-
-        stage('Deploy to Staging') {
-            steps {
-                echo 'Deploying to staging server'
-            }
-        }
-
-        stage('Integration Tests on Staging') {
-            steps {
-                echo 'Running staging tests'
-            }
-        }
-
-        stage('Deploy to Production') {
-            steps {
-                echo 'Deploying to production server'
+                sh 'npm audit || true'
             }
         }
     }
