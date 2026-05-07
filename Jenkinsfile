@@ -33,13 +33,17 @@ pipeline {
         }
 stage('SonarCloud Analysis') {
     steps {
-        // This 'SONAR_TOKEN' must match the ID you created in Step 1
         withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
             sh '''
+            # 1. Force remove the old scanner work directory to clear the lock
+            rm -rf .scannerwork
+            
+            # 2. Run the scanner
             /opt/sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner \
             -Dsonar.token=${SONAR_TOKEN}
             '''
         }
     }
-}	}
+}
+	}
 }
